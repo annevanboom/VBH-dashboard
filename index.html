@@ -92,13 +92,13 @@ canvas{width:100%;height:210px;display:block}
      <div class="legend"><span><i style="background:var(--ochre)"></i>2026</span><span><i style="background:#b9b0a4"></i>2025</span></div></div>
    <div class="panel"><h3>Benchmark binnen segment</h3><div class="sub" id="benchSub"></div><div id="bench"></div></div>
  </div>
- <div class="panel" id="assortPanel" style="margin-bottom:22px"><h3>Assortiment â te veel of te weinig besteld? (laatste QV · week 23)</h3><div class="sub" id="assortSub"></div><div id="assortBody"></div></div>
- <div class="panel" id="selloutPanel" style="margin-bottom:22px"><h3>Uitverkooptijden & restant (8â14 juni)</h3><div class="sub" id="selloutSub"></div>
+ <div class="panel" id="assortPanel" style="margin-bottom:22px"><h3>Assortiment — te veel of te weinig besteld? (laatste QV · week 23)</h3><div class="sub" id="assortSub"></div><div id="assortBody"></div></div>
+ <div class="panel" id="selloutPanel" style="margin-bottom:22px"><h3>Uitverkooptijden & restant (8–14 juni)</h3><div class="sub" id="selloutSub"></div>
    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:4px">
-     <div><div style="font-size:12.5px;font-weight:600;color:var(--red);margin-bottom:4px">Bijna dagelijks vroeg op â te krap</div><div id="selloutKrap"></div></div>
-     <div><div style="font-size:12.5px;font-weight:600;color:var(--ochre);margin-bottom:4px">Verkoopt zelden uit â vaak restant</div><div id="selloutRestant"></div></div>
+     <div><div style="font-size:12.5px;font-weight:600;color:var(--red);margin-bottom:4px">Bijna dagelijks vroeg op — te krap</div><div id="selloutKrap"></div></div>
+     <div><div style="font-size:12.5px;font-weight:600;color:var(--ochre);margin-bottom:4px">Verkoopt zelden uit — vaak restant</div><div id="selloutRestant"></div></div>
    </div>
-   <div class="bench-note">Een blanco dag in het bronrapport = die dag niet uitverkocht (restant). Links: verkoopt op â¥5 van de 7 dagen vÃ³Ã³r 14:00 uit â bestel of bak meer, je mist omzet. Rechts: verkoopt op â¤2 van de 7 dagen uit â vaak restant, bestel minder (let op derving). Een beetje restant is normaal. Periode 8â14 juni 2026.</div>
+   <div class="bench-note">Een blanco dag in het bronrapport = die dag niet uitverkocht (restant). Links: verkoopt op ≥5 van de 7 dagen vóór 14:00 uit → bestel of bak meer, je mist omzet. Rechts: verkoopt op ≤2 van de 7 dagen uit → vaak restant, bestel minder (let op derving). Een beetje restant is normaal. Periode 8–14 juni 2026.</div>
  </div>
  <div class="focus"><div class="ft" id="focusTitle"></div><div id="focusText" style="font-size:14px;color:#5a4413"></div></div>
  <div class="panel outlook"><h3>Vooruitblik komende week</h3><div class="sub" id="outSub"></div>
@@ -120,7 +120,7 @@ const num0=new Intl.NumberFormat('nl-NL');
 let curCode=STORES[0].code, curPer='wk';
 const byCode=c=>STORES.find(s=>s.code===c);
 const current=()=>byCode(curCode);
-function idxPct(i){if(i==null)return 'â';const p=(i-1)*100;return (p>=0?'+':'')+p.toFixed(0)+'%';}
+function idxPct(i){if(i==null)return '—';const p=(i-1)*100;return (p>=0?'+':'')+p.toFixed(0)+'%';}
 function cls(good){return good?'up':'down';}
 
 const sel=document.getElementById('storeSel');
@@ -139,20 +139,20 @@ function render(){
   const s=current(); document.getElementById('segSel').value=s.segment;
   document.getElementById('metaweek').textContent = curPer==='wk'?'Week 26 · 2026':'YTD t/m week 26 · 2026';
   renderReview(); renderKpis(); renderTrend(); renderBench(); renderAssort(); renderSellout(); renderVerdict(); renderZomer(); renderWeather(); renderHistory();
-  document.getElementById('outSub').textContent='Weer dinsdag t/m maandag (di 16 â ma 22 jun), als input voor je planning komende week.';
+  document.getElementById('outSub').textContent='Weer dinsdag t/m maandag (di 16 – ma 22 jun), als input voor je planning komende week.';
 }
 function dot(good){return '<span class="dot" style="background:'+(good?'var(--green)':'var(--red)')+'"></span>';}
 
 function renderReview(){
   const s=current(); const p=document.getElementById('reviewPanel'); const r=s.review;
   if(!r||r.rating==null){p.innerHTML='<h3>Google-reviews</h3><div class="sub">Geen betrouwbare Google-match gevonden voor deze winkel.</div>';return;}
-  const rnd=Math.round(r.rating); let stars=''; for(let i=0;i<5;i++) stars+=(i<rnd?'â':'â');
+  const rnd=Math.round(r.rating); let stars=''; for(let i=0;i<5;i++) stars+=(i<rnd?'★':'☆');
   const col=r.rating>=4?'var(--green)':(r.rating>=3.5?'var(--ochre)':'var(--red)');
   p.innerHTML='<h3>Google-reviews</h3>'
     +'<div style="display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:5px">'
     +'<div style="font-family:\'Space Grotesk\';font-weight:600;font-size:30px;color:'+col+';line-height:1">'+r.rating.toFixed(1)+'</div>'
     +'<div><div style="color:#e0a800;font-size:16px;letter-spacing:2px">'+stars+'</div><div style="font-size:12px;color:var(--ink3);margin-top:2px">'+r.count+' reviews</div></div>'
-    +'<div style="flex:1;min-width:230px;font-size:13px;color:var(--ink2);font-style:italic;border-left:3px solid var(--line);padding-left:12px">â'+r.review+'â</div>'
+    +'<div style="flex:1;min-width:230px;font-size:13px;color:var(--ink2);font-style:italic;border-left:3px solid var(--line);padding-left:12px">“'+r.review+'”</div>'
     +'</div><div class="bench-note">Recente Google-review. Score en aantal zijn een momentopname; Google levert geen exacte plaatsingsdatum mee.</div>';
 }
 function renderResult(){
@@ -164,15 +164,15 @@ function renderResult(){
   const persLab=exact?'Personeel':'Personeel (gesch.)';
   const resLab=exact?'Bedrijfsresultaat':'Resultaat (gesch.)';
   const sub=exact
-    ? 'Werkelijke cijfers week 23: omzet â inkoop = brutowinst, â loonkosten (Dyflexis) = bedrijfsresultaat. Excl. huur en overige overhead.'
-    : 'Brutowinst = omzet â inkoop (hard). Personeel en resultaat zijn voor YTD geschat met de personeelsratio 2025 (week 23 is wÃ©l exact).';
+    ? 'Werkelijke cijfers week 23: omzet − inkoop = brutowinst, − loonkosten (Dyflexis) = bedrijfsresultaat. Excl. huur en overige overhead.'
+    : 'Brutowinst = omzet − inkoop (hard). Personeel en resultaat zijn voor YTD geschat met de personeelsratio 2025 (week 23 is wél exact).';
   const cell=(lab,val,sub,big,col)=>'<div style="flex:1;min-width:118px"><div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em">'+lab+'</div><div style="font-family:\'Space Grotesk\';font-weight:600;font-size:'+(big?'23px':'18px')+';color:'+(col||'var(--ink)')+';font-variant-numeric:tabular-nums;margin-top:2px">'+val+'</div>'+(sub?'<div style="font-size:11.5px;color:var(--ink3)">'+sub+'</div>':'')+'</div>';
   const op=t=>'<div style="font-family:\'Space Grotesk\';font-size:19px;color:var(--ink3);align-self:center;padding-top:14px">'+t+'</div>';
   document.getElementById('resultPanel').innerHTML='<h3>Resultaat '+(curPer==='wk'?'week 26':'YTD')+'</h3><div class="sub">'+sub+'</div>'
    +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:stretch;margin-top:8px">'
-   +cell('Omzet excl.',eur0.format(d.omzet))+op('â')
+   +cell('Omzet excl.',eur0.format(d.omzet))+op('−')
    +cell('Inkoop',eur0.format(ink),(d.inkoop*100).toFixed(0)+'%')+op('=')
-   +cell('Brutowinst',eur0.format(bw),(marge*100).toFixed(0)+'% marge',true)+op('â')
+   +cell('Brutowinst',eur0.format(bw),(marge*100).toFixed(0)+'% marge',true)+op('−')
    +cell(persLab,eur0.format(persE),(persPct*100).toFixed(0)+'% v. omzet')+op('=')
    +cell(resLab,eur0.format(res),(resPct*100).toFixed(0)+'% v. omzet',true,res>=0?'var(--green)':'var(--red)')
    +'</div>';
@@ -189,14 +189,14 @@ function renderKpis(){
   const dvRank=d.retour!=null?[...dvVals].sort((a,b)=>b-a).indexOf(d.retour)+1:null;
   const gbDelta={Brood:1,Allrounder:2,Horeca:4}[s.segment]||2;
   const gbBase=s.ytd.gembest, gbGoal=gbBase+gbDelta, gbProg=Math.max(0,Math.min(1,(d.gembest-gbBase)/gbDelta));
-  const goalBar='<div style="margin-top:9px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-bottom:4px"><span>doel +â¬'+gbDelta+'</span><span>'+eur2.format(gbGoal)+'</span></div><div style="height:6px;background:#efe9e0;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(gbProg*100).toFixed(0)+'%;background:'+(d.gembest>=gbGoal?'var(--green)':'var(--ochre)')+'"></div></div></div>';
+  const goalBar='<div style="margin-top:9px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-bottom:4px"><span>doel +€'+gbDelta+'</span><span>'+eur2.format(gbGoal)+'</span></div><div style="height:6px;background:#efe9e0;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(gbProg*100).toFixed(0)+'%;background:'+(d.gembest>=gbGoal?'var(--green)':'var(--ochre)')+'"></div></div></div>';
   const items=[
     {lab:'Omzet excl.',val:eur0.format(d.omzet),good:d.idx_begr>=1,cmps:[['vs begroting',idxPct(d.idx_begr),d.idx_begr>=1],['vs vorig jaar',idxPct(d.idx_ly),d.idx_ly>=1]]},
     {lab:'Inkoop % vanuit de bakkerij',val:(d.inkoop*100).toFixed(0)+'%',good:(d.inkoop_begr!=null? d.inkoop<=d.inkoop_begr : true),
-       cmps:[['norm (begroot)',(d.inkoop_begr!=null?(d.inkoop_begr*100).toFixed(0)+'%':'â'),(d.inkoop_begr!=null?d.inkoop<=d.inkoop_begr:null)],['t.o.v. norm',(inkGap!=null?(inkGap>0?'+':'â')+eur0.format(Math.abs(inkGap)):'â'),(inkGap!=null?inkGap<=0:null)]]},
+       cmps:[['norm (begroot)',(d.inkoop_begr!=null?(d.inkoop_begr*100).toFixed(0)+'%':'—'),(d.inkoop_begr!=null?d.inkoop<=d.inkoop_begr:null)],['t.o.v. norm',(inkGap!=null?(inkGap>0?'+':'−')+eur0.format(Math.abs(inkGap)):'—'),(inkGap!=null?inkGap<=0:null)]]},
     {lab:'Derving (% v. inkoop)',val:(Math.abs(d.retour)*100).toFixed(1)+'%',good:dvAvg!=null?d.retour>=dvAvg:true,
-       cmps:[['segm. gem.',dvAvg!=null?(Math.abs(dvAvg)*100).toFixed(1)+'%':'â',null],['in segment',dvRank!=null?dvRank+'e van '+dvVals.length+' (laag=goed)':'â',dvRank!=null?d.retour>=dvAvg:null]]},
-    {lab:'OPU (omzet/uur)',val:d.opu!=null?eur2.format(d.opu):'â',good:opuRank!=null?d.opu>=opuAvg:true,cmps:[['gewerkte uren',d.uren!=null?num0.format(d.uren):'â',null],['in segment',opuRank!=null?opuRank+'e van '+opuVals.length:'â',opuRank!=null?d.opu>=opuAvg:null]]},
+       cmps:[['segm. gem.',dvAvg!=null?(Math.abs(dvAvg)*100).toFixed(1)+'%':'—',null],['in segment',dvRank!=null?dvRank+'e van '+dvVals.length+' (laag=goed)':'—',dvRank!=null?d.retour>=dvAvg:null]]},
+    {lab:'OPU (omzet/uur)',val:d.opu!=null?eur2.format(d.opu):'—',good:opuRank!=null?d.opu>=opuAvg:true,cmps:[['gewerkte uren',d.uren!=null?num0.format(d.uren):'—',null],['in segment',opuRank!=null?opuRank+'e van '+opuVals.length:'—',opuRank!=null?d.opu>=opuAvg:null]]},
     {lab:'Gem. besteding',val:eur2.format(d.gembest),good:d.gembest>=gbBase,cmps:[['vs vorig jaar',idxPct(d.gembest/d.gembest_ly),d.gembest>=d.gembest_ly]],extra:goalBar},
     {lab:'Klanten',val:num0.format(d.klanten),good:true,cmps: curPer==='wk'?[['vs vorig jaar',idxPct(s.wk.klanten/s.wk.klanten_ly), s.wk.klanten>=s.wk.klanten_ly]]:[['aantal','YTD',null]]},
   ];
@@ -214,7 +214,7 @@ function renderTrend(){
   const all=a.concat(b).filter(v=>v!=null); const mx=Math.max(...all)*1.08, mn=Math.min(...all)*0.9;
   const pad={l:46,r:8,t:10,b:20}; const px=i=>pad.l+(W-pad.l-pad.r)*(i/(wks.length-1)); const py=v=>pad.t+(H-pad.t-pad.b)*(1-(v-mn)/(mx-mn));
   x.strokeStyle='#efe9e0';x.lineWidth=1;x.fillStyle='#8a8179';x.font='10px Inter';
-  for(let g=0;g<=3;g++){const v=mn+(mx-mn)*g/3;const yy=py(v);x.beginPath();x.moveTo(pad.l,yy);x.lineTo(W-pad.r,yy);x.stroke();x.fillText('â¬'+Math.round(v/1000)+'k',4,yy+3);}
+  for(let g=0;g<=3;g++){const v=mn+(mx-mn)*g/3;const yy=py(v);x.beginPath();x.moveTo(pad.l,yy);x.lineTo(W-pad.r,yy);x.stroke();x.fillText('€'+Math.round(v/1000)+'k',4,yy+3);}
   [['#c7bfb3',b,1.6],['#b5791b',a,2.4]].forEach(([col,arr,lw])=>{
     x.strokeStyle=col;x.lineWidth=lw;x.beginPath();let started=false;
     arr.forEach((v,i)=>{if(v==null)return;const X=px(i),Y=py(v);if(!started){x.moveTo(X,Y);started=true;}else x.lineTo(X,Y);});x.stroke();});
@@ -227,7 +227,7 @@ function renderBench(){
   const SEGINFO={Horeca:'HoReCa > 45% · hoge marge, hogere waste',Allrounder:'HoReCa ~40% · beste rendement, lage waste',Brood:'bakkerij > 59% · lagere marge'};
   document.getElementById('benchSub').textContent='Segment '+s.segment+' · '+peers.length+' winkels · '+(SEGINFO[s.segment]||'');
   const metrics=[
-    {lab:'OPU (â¬/uur)',get:p=>p[curPer].opu,hi:true,fmt:v=>eur2.format(v)},
+    {lab:'OPU (€/uur)',get:p=>p[curPer].opu,hi:true,fmt:v=>eur2.format(v)},
     {lab:'Inkoop % bakkerij (lager = beter)',get:p=>p[curPer].inkoop,hi:false,fmt:v=>(v*100).toFixed(0)+'%'},
     {lab:'Derving % (lager = beter)',get:p=>p[curPer].retour,hi:true,fmt:v=>(Math.abs(v)*100).toFixed(1)+'%'},
     {lab:'Omzet vs begroting',get:p=>p[curPer].idx_begr,hi:true,fmt:v=>idxPct(v)},
@@ -238,15 +238,15 @@ function renderBench(){
     const vals=peers.map(m.get).filter(v=>v!=null); if(vals.length<2){return;}
     const mn=Math.min(...vals),mx=Math.max(...vals); const v=m.get(s);
     const pos=v==null?0:(mx===mn?50:((m.hi?(v-mn)/(mx-mn):(mx-v)/(mx-mn))*100));
-    const sorted=[...vals].sort((p,q)=>m.hi?q-p:p-q); const rank=v==null?'â':(sorted.indexOf(v)+1);
+    const sorted=[...vals].sort((p,q)=>m.hi?q-p:p-q); const rank=v==null?'—':(sorted.indexOf(v)+1);
     const good = v!=null && pos>=50;
-    const isOPU = m.lab === 'OPU (â¬/uur)';
+    const isOPU = m.lab === 'OPU (€/uur)';
     const opuBelowTarget = isOPU && v!=null && v<95;
     const bgColor = opuBelowTarget ? 'var(--red-bg)' : 'transparent';
     box.innerHTML+='<div class="bench-row" style="background:'+bgColor+';padding:9px;border-radius:8px;margin-left:-9px;margin-right:-9px;padding-left:18px;padding-right:18px"><div class="bl"><span>'+m.lab+'</span><span class="rk">'+(v==null?'geen data':m.fmt(v)+' · '+rank+'e van '+vals.length)+'</span></div>'
       +'<div class="track"><div class="mk" style="left:'+pos+'%;background:'+(good?'var(--green)':'var(--ochre)')+'"></div></div></div>';
   });
-  box.innerHTML+='<div class="bench-note">Let op: een hoge OPU kan ook onderbezetting betekenen. Lees âm altijd naast de geplande uren.</div>';
+  box.innerHTML+='<div class="bench-note">Let op: een hoge OPU kan ook onderbezetting betekenen. Lees ’m altijd naast de geplande uren.</div>';
 }
 
 function renderVerdict(){
@@ -257,13 +257,13 @@ function renderVerdict(){
   const cands=[];
   if(d.idx_begr<0.97) cands.push({sev:0.97-d.idx_begr,lever:'Omzet & traffic',
     t:'Omzet ligt '+Math.round((1-d.idx_begr)*100)+'% onder begroting.',
-    acties:['Zet je sterkste mensen op de twee piekuren (8â10u en 12â14u): snelle kassa, volle vitrine.','Train actief op koppelverkoop: "koffie erbij voor onderweg?" en "een taartje of croissantje erbij?"','Maak koffie en lunch zichtbaar vanaf buiten en zet de bestsellers vooraan.']});
+    acties:['Zet je sterkste mensen op de twee piekuren (8–10u en 12–14u): snelle kassa, volle vitrine.','Train actief op koppelverkoop: "koffie erbij voor onderweg?" en "een taartje of croissantje erbij?"','Maak koffie en lunch zichtbaar vanaf buiten en zet de bestsellers vooraan.']});
   if(d.inkoop_begr!=null && d.inkoop-d.inkoop_begr>0.01) cands.push({sev:(d.inkoop-d.inkoop_begr)*3,lever:'Marge & inkoop',
-    t:'Inkoop ligt '+Math.round((d.inkoop-d.inkoop_begr)*100)+'pp boven de norm'+(inkGap!=null?' â dat is Â±'+eur0.format(inkGap)+' deze periode':'')+'.',
-    acties:['Bestel komende week 5â10% minder van de hardlopers met veel derving (brood 400g, focaccia, koffiebroodje).','Tel per dagdeel wat er overblijft en stuur de bestelling van de volgende dag daar direct op bij.','Bak viennoiserie in kleinere batches door de dag heen i.p.v. Ã©Ã©n grote ochtendbatch.']});
+    t:'Inkoop ligt '+Math.round((d.inkoop-d.inkoop_begr)*100)+'pp boven de norm'+(inkGap!=null?' — dat is ±'+eur0.format(inkGap)+' deze periode':'')+'.',
+    acties:['Bestel komende week 5–10% minder van de hardlopers met veel derving (brood 400g, focaccia, koffiebroodje).','Tel per dagdeel wat er overblijft en stuur de bestelling van de volgende dag daar direct op bij.','Bak viennoiserie in kleinere batches door de dag heen i.p.v. één grote ochtendbatch.']});
   if(d.opu!=null && peers.length>=3 && opuRank>Math.ceil(peers.length*2/3)) cands.push({sev:0.15,lever:'Personeel & rooster',
     t:'Omzet per gewerkt uur ('+eur2.format(d.opu)+') hoort bij de laagste in je segment.',
-    acties:['Leg het rooster van komende week naast de omzet-per-uur per dag; plan uren waar de omzet zit.','Schrap 1 kracht in de daluren (di/wo 14â16u) en verschuif die naar de ochtendpiek.','Plan pauzes bewust in de rustige uren, niet tijdens de spits.','Vergelijk je openings-/sluitbezetting met het eerste/laatste verkoopuur â een uur eerder dicht kan netto lonen.']});
+    acties:['Leg het rooster van komende week naast de omzet-per-uur per dag; plan uren waar de omzet zit.','Schrap 1 kracht in de daluren (di/wo 14–16u) en verschuif die naar de ochtendpiek.','Plan pauzes bewust in de rustige uren, niet tijdens de spits.','Vergelijk je openings-/sluitbezetting met het eerste/laatste verkoopuur — een uur eerder dicht kan netto lonen.']});
   if(d.retour<-0.10) cands.push({sev:Math.abs(d.retour),lever:'Derving',
     t:'De retour/derving ligt relatief hoog t.o.v. je segment.',
     acties:['Stuur productie op de forecast i.p.v. op gevoel; neem dezelfde week vorig jaar als basis.','Zet bijna-over producten tijdig op Too Good To Go in plaats van weggooien.','Log dagelijks per dagdeel wat overblijft, zodat het patroon zichtbaar wordt.']});
@@ -271,12 +271,12 @@ function renderVerdict(){
   const v=document.getElementById('verdict');
   const ft=document.getElementById('focusTitle'), ftx=document.getElementById('focusText');
   if(cands.length===0){
-    ft.innerHTML='â Op koers';
-    ftx.innerHTML='Sterke periode â omzet, marge en OPU liggen op of boven plan. Houd vast wat werkt en deel je aanpak met de andere winkels in je segment.';
+    ft.innerHTML='✓ Op koers';
+    ftx.innerHTML='Sterke periode — omzet, marge en OPU liggen op of boven plan. Houd vast wat werkt en deel je aanpak met de andere winkels in je segment.';
     v.innerHTML='<b>'+s.naam+'</b> draait op of boven plan deze periode. Mooi bezig.';
   }else{
     const c=cands[0];
-    ft.innerHTML='â Focuspunt â '+c.lever;
+    ft.innerHTML='◉ Focuspunt — '+c.lever;
     ftx.innerHTML=c.t+'<div style="font-size:12.5px;font-weight:600;color:var(--amber);margin:11px 0 5px">Deze week concreet:</div><ul style="margin:0;padding-left:18px;line-height:1.55">'+c.acties.map(a=>'<li style="margin-bottom:3px">'+a+'</li>').join('')+'</ul>';
     v.innerHTML='<b>'+s.naam+'</b>: omzet '+idxPct(d.idx_begr)+' vs begroting, '+idxPct(d.idx_ly)+' vs vorig jaar. Grootste kans deze periode zit bij <b>'+c.lever.toLowerCase()+'</b>.';
   }
@@ -299,7 +299,7 @@ function renderAssort(){
     return '<div class="bench-row"><div class="bl"><span>'+x.naam+' <span style="color:var(--ink3);font-weight:400">· '+(x.aandeel*100).toFixed(0)+'% v. omzet · retour '+(x.retourPct*100).toFixed(1)+'%</span></span><span class="rk">'+chip+'</span></div>'
       +'<div class="track" style="position:relative"><div style="position:absolute;left:0;top:0;height:100%;width:'+Math.min(100,x.retourPct/scale*100).toFixed(0)+'%;background:'+col+';border-radius:5px"></div><div style="position:absolute;left:'+Math.min(100,x.bp/scale*100).toFixed(0)+'%;top:-3px;height:14px;width:2px;background:var(--ink2)"></div></div></div>';
   }).join('');
-  body.innerHTML+='<div class="bench-note">Boven het gemiddelde van je segment ('+s.segment+', grijze streep) = relatief veel retour â indicatie te veel besteld. Sterk eronder = scherp/krap ingekocht. âTe weinig besteldâ (nee-verkoop) is niet direct uit deze data af te lezen.</div>';
+  body.innerHTML+='<div class="bench-note">Boven het gemiddelde van je segment ('+s.segment+', grijze streep) = relatief veel retour → indicatie te veel besteld. Sterk eronder = scherp/krap ingekocht. “Te weinig besteld” (nee-verkoop) is niet direct uit deze data af te lezen.</div>';
 }
 function renderSellout(){
   const s=current(); const pan=document.getElementById('selloutPanel');
@@ -321,16 +321,16 @@ function renderWeekDetail(w){
   var idx=(h.omzet!=null&&h.omzet_ly)?h.omzet/h.omzet_ly:null;
   if(!h.detail){
     el.innerHTML='<h3>Week '+w+' · '+s.naam+'</h3><div class="sub">Voor deze week is alleen de weekomzet vastgelegd. De gedetailleerde cijfers (inkoop, derving, OPU, gem. besteding, uitverkoop) leggen we per week vast vanaf week 23.</div>'
-      +'<div class="grid" style="margin:0">'+kpiMini('Omzet excl.',eur0.format(h.omzet))+kpiMini('Vorig jaar',h.omzet_ly!=null?eur0.format(h.omzet_ly):'â')+kpiMini('Vs vorig jaar',idxPct(idx))+'</div>';
+      +'<div class="grid" style="margin:0">'+kpiMini('Omzet excl.',eur0.format(h.omzet))+kpiMini('Vorig jaar',h.omzet_ly!=null?eur0.format(h.omzet_ly):'—')+kpiMini('Vs vorig jaar',idxPct(idx))+'</div>';
     return;
   }
   var cards=[
     ['Omzet excl.',eur0.format(h.omzet),'vs begroting '+idxPct(h.idx_begr)+' · vs LY '+idxPct(h.idx_ly)],
-    ['Inkoop %',h.inkoop!=null?(h.inkoop*100).toFixed(0)+'%':'â',h.inkoop_begr!=null?'norm '+(h.inkoop_begr*100).toFixed(0)+'%':''],
-    ['Derving %',h.retour!=null?(Math.abs(h.retour)*100).toFixed(1)+'%':'â',''],
-    ['OPU (â¬/uur)',h.opu!=null?eur2.format(h.opu):'â',h.uren!=null?num0.format(h.uren)+' gewerkte uur':''],
-    ['Gem. besteding',h.gembest!=null?eur2.format(h.gembest):'â',''],
-    ['Klanten',h.klanten!=null?num0.format(h.klanten):'â','']
+    ['Inkoop %',h.inkoop!=null?(h.inkoop*100).toFixed(0)+'%':'—',h.inkoop_begr!=null?'norm '+(h.inkoop_begr*100).toFixed(0)+'%':''],
+    ['Derving %',h.retour!=null?(Math.abs(h.retour)*100).toFixed(1)+'%':'—',''],
+    ['OPU (€/uur)',h.opu!=null?eur2.format(h.opu):'—',h.uren!=null?num0.format(h.uren)+' gewerkte uur':''],
+    ['Gem. besteding',h.gembest!=null?eur2.format(h.gembest):'—',''],
+    ['Klanten',h.klanten!=null?num0.format(h.klanten):'—','']
   ];
   var g='<div class="grid" style="margin-bottom:14px">'+cards.map(function(c){return '<div class="kpi"><div class="k-lab">'+c[0]+'</div><div class="k-val">'+c[1]+'</div>'+(c[2]?'<div class="k-cmp"><span>'+c[2]+'</span></div>':'')+'</div>';}).join('')+'</div>';
   var so='';
@@ -340,7 +340,7 @@ function renderWeekDetail(w){
     var emp='<div style="font-size:12.5px;color:var(--ink3);padding:5px 0">Geen uitschieters.</div>';
     so='<div style="font-size:13px;font-weight:600;margin-bottom:6px">Uitverkooptijden &amp; restant</div>'
       +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px">'
-      +'<div><div style="font-size:12.5px;font-weight:600;color:var(--red);margin-bottom:4px">Te krap â vroeg op</div>'+(K.map(function(r){return li(r,'krap');}).join('')||emp)+'</div>'
+      +'<div><div style="font-size:12.5px;font-weight:600;color:var(--red);margin-bottom:4px">Te krap — vroeg op</div>'+(K.map(function(r){return li(r,'krap');}).join('')||emp)+'</div>'
       +'<div><div style="font-size:12.5px;font-weight:600;color:var(--ochre);margin-bottom:4px">Vaak restant</div>'+(R.map(function(r){return li(r,'restant');}).join('')||emp)+'</div></div>';
   }
   var note=h.note?'<div class="bench-note">'+h.note+'</div>':'';
@@ -355,13 +355,13 @@ function renderHistory(){
     var ic=idx==null?'var(--ink3)':(idx>=1?'var(--green)':'var(--red)');
     var on=(w===curHistWeek);
     return '<tr class="hrow'+(on?' on':'')+'" data-w="'+w+'"><td>Week '+w+(h.detail?'':' <span style="font-weight:400;color:var(--ink3)">· alleen omzet</span>')+'</td>'
-      +'<td>'+(h.omzet!=null?eur0.format(h.omzet):'â')+'</td>'
-      +'<td style="color:var(--ink3)">'+(h.omzet_ly!=null?eur0.format(h.omzet_ly):'â')+'</td>'
-      +'<td style="color:'+ic+';font-weight:600">'+(idx!=null?((idx>=1?'+':'')+((idx-1)*100).toFixed(0)+'%'):'â')+'</td></tr>';
+      +'<td>'+(h.omzet!=null?eur0.format(h.omzet):'—')+'</td>'
+      +'<td style="color:var(--ink3)">'+(h.omzet_ly!=null?eur0.format(h.omzet_ly):'—')+'</td>'
+      +'<td style="color:'+ic+';font-weight:600">'+(idx!=null?((idx>=1?'+':'')+((idx-1)*100).toFixed(0)+'%'):'—')+'</td></tr>';
   }).join('');
   var v=document.getElementById('histView');
   v.innerHTML='<div class="hgrid">'
-    +'<div class="panel"><h3>Weken â '+s.naam+'</h3><div class="sub">Klik op een week voor de exacte cijfers. Omzet 2026 vs. vorig jaar (zelfde week). Detailcijfers (inkoop, derving, OPU, uitverkoop) per week vanaf week 23; elke nieuwe week schuift bovenaan in.</div>'
+    +'<div class="panel"><h3>Weken — '+s.naam+'</h3><div class="sub">Klik op een week voor de exacte cijfers. Omzet 2026 vs. vorig jaar (zelfde week). Detailcijfers (inkoop, derving, OPU, uitverkoop) per week vanaf week 23; elke nieuwe week schuift bovenaan in.</div>'
     +'<table class="htab"><thead><tr><th>Week</th><th>2026</th><th>2025</th><th>vs LY</th></tr></thead><tbody id="histRows">'+rows+'</tbody></table></div>'
     +'<div id="histDetail" class="panel"></div></div>';
   v.querySelectorAll('.hrow').forEach(function(r){r.onclick=function(){curHistWeek=Number(r.dataset.w);renderHistory();};});
@@ -372,18 +372,18 @@ function renderWeather(){
   if(!s.weer||!s.weer.length){wb.innerHTML='';return;}
   var anyEst=s.weer.some(function(d){return d.est;});
   wb.innerHTML='<div class="wx">'+s.weer.map(function(d){
-    if(d.max==null) return '<div class="d" style="opacity:.5"><div class="dd">'+d.dag+'</div><div class="tt" style="font-size:13px;color:var(--ink3)">â</div><div class="ds">volgt</div></div>';
-    var tag=d.est?'<div style="font-size:9.5px;color:var(--ink3);letter-spacing:.02em;margin-top:2px">â schatting</div>':'';
-    return '<div class="d"'+(d.est?' style="border-style:dashed"':'')+'><div class="dd">'+d.dag+'</div><div class="tt">'+d.max+'Â°</div><div class="ds">'+d.kort+'</div><div class="rn">â '+d.regen+'%</div>'+tag+'</div>';
-  }).join('')+'</div>'+(anyEst?'<div class="bench-note">Di t/m vr: verwachting (5-daagse). Za t/m ma: schatting op basis van de trend (zoals een 7-daagse van Buienradar) â ververst zodra de korte-termijnverwachting die dagen bereikt.</div>':'');
+    if(d.max==null) return '<div class="d" style="opacity:.5"><div class="dd">'+d.dag+'</div><div class="tt" style="font-size:13px;color:var(--ink3)">—</div><div class="ds">volgt</div></div>';
+    var tag=d.est?'<div style="font-size:9.5px;color:var(--ink3);letter-spacing:.02em;margin-top:2px">≈ schatting</div>':'';
+    return '<div class="d"'+(d.est?' style="border-style:dashed"':'')+'><div class="dd">'+d.dag+'</div><div class="tt">'+d.max+'°</div><div class="ds">'+d.kort+'</div><div class="rn">☔ '+d.regen+'%</div>'+tag+'</div>';
+  }).join('')+'</div>'+(anyEst?'<div class="bench-note">Di t/m vr: verwachting (5-daagse). Za t/m ma: schatting op basis van de trend (zoals een 7-daagse van Buienradar) — ververst zodra de korte-termijnverwachting die dagen bereikt.</div>':'');
 }
 function renderZomer(){
   const z=current().y2025.zomerdip;
   const col=z<=-18?'var(--red)':(z<=-12?'var(--amber)':'var(--green)');
   const bg=z<=-18?'var(--red-bg)':(z<=-12?'var(--ochre-soft)':'var(--green-bg)');
-  document.getElementById('zomerCard').innerHTML='<div style="display:flex;align-items:center;gap:13px;background:'+bg+';border-radius:11px;padding:11px 14px;margin:0 0 14px"><div style="font-family:\'Space Grotesk\';font-weight:600;font-size:23px;color:'+col+';white-space:nowrap">'+(z>=0?'+':'')+z.toFixed(1)+'%</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.4">Verwachte <b>zomerdip</b> wk 27â39 (o.b.v. 2025). '+(z>=0?'Deze winkel groeit juist door in de zomer.':'Schaal bakplanning ~5â10% af en stuur rooster mee; brood en food dalen het hardst.')+'</div></div>';
+  document.getElementById('zomerCard').innerHTML='<div style="display:flex;align-items:center;gap:13px;background:'+bg+';border-radius:11px;padding:11px 14px;margin:0 0 14px"><div style="font-family:\'Space Grotesk\';font-weight:600;font-size:23px;color:'+col+';white-space:nowrap">'+(z>=0?'+':'')+z.toFixed(1)+'%</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.4">Verwachte <b>zomerdip</b> wk 27–39 (o.b.v. 2025). '+(z>=0?'Deze winkel groeit juist door in de zomer.':'Schaal bakplanning ~5–10% af en stuur rooster mee; brood en food dalen het hardst.')+'</div></div>';
 }
-document.getElementById('foot').innerHTML='Bron: live week 26 (omzet, klanten, gewerkte uren, uitverkooptijden 8â14 juni) + Winkelrapportage QV (week 23) voor inkoop/derving/begroting/assortiment, gekoppeld op winkelnaam. Segmentindeling volgens de West Whale DNA-analyse (HoReCa-aandeel) â aanpasbaar via de keuzelijst, de benchmark beweegt mee. Weer: verwachting voor de komende week (di t/m ma); dagen buiten de ~5-daagse horizon vullen aan bij genereren of via een 7-daagse weer-API in productie. Google-reviewscores zijn een momentopname.';
+document.getElementById('foot').innerHTML='Bron: live week 26 (omzet, klanten, gewerkte uren, uitverkooptijden 8–14 juni) + Winkelrapportage QV (week 23) voor inkoop/derving/begroting/assortiment, gekoppeld op winkelnaam. Segmentindeling volgens de West Whale DNA-analyse (HoReCa-aandeel) — aanpasbaar via de keuzelijst, de benchmark beweegt mee. Weer: verwachting voor de komende week (di t/m ma); dagen buiten de ~5-daagse horizon vullen aan bij genereren of via een 7-daagse weer-API in productie. Google-reviewscores zijn een momentopname.';
 
 
 // Weersvoorspelling ophalen van KNMI
@@ -404,10 +404,10 @@ async function loadWeatherForecast() {
     
     let html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:12px 0">';
     const days = ['Zaterdag', 'Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag'];
-    const icons = {0:'âï¸', 1:'ð¤ï¸', 2:'â', 3:'âï¸', 45:'ð«ï¸', 48:'ð«ï¸', 51:'ð§ï¸', 53:'ð§ï¸', 55:'ð§ï¸', 61:'ð§ï¸', 63:'âï¸', 65:'âï¸', 71:'âï¸', 73:'âï¸', 75:'âï¸', 80:'ð§ï¸', 81:'âï¸', 82:'âï¸', 85:'âï¸', 86:'âï¸', 95:'âï¸', 96:'âï¸', 99:'âï¸'};
+    const icons = {0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️', 45:'🌫️', 48:'🌫️', 51:'🌧️', 53:'🌧️', 55:'🌧️', 61:'🌧️', 63:'⛈️', 65:'⛈️', 71:'❄️', 73:'❄️', 75:'❄️', 80:'🌧️', 81:'⛈️', 82:'⛈️', 85:'❄️', 86:'❄️', 95:'⛈️', 96:'⛈️', 99:'⛈️'};
     
     for (let i = 0; i < 7; i++) {
-      const icon = icons[data.daily.weathercode[i]] || 'ð¤ï¸';
+      const icon = icons[data.daily.weathercode[i]] || '🌤️';
       const max = Math.round(data.daily.temperature_2m_max[i]);
       const min = Math.round(data.daily.temperature_2m_min[i]);
       const rain = data.daily.precipitation_sum[i];
@@ -415,9 +415,9 @@ async function loadWeatherForecast() {
       html += '<div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center">' +
         '<div style="font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:4px">'+days[i]+'</div>' +
         '<div style="font-size:24px;margin:6px 0">'+icon+'</div>' +
-        '<div style="font-family:Space Grotesk;font-weight:600;font-size:14px;color:var(--ochre)">'+max+'Â°C</div>' +
-        '<div style="font-size:11px;color:var(--ink3);margin-bottom:6px">min '+min+'Â°C</div>' +
-        (rain > 0 ? '<div style="font-size:10px;color:var(--red)">ð§ '+rain+'mm</div>' : '') +
+        '<div style="font-family:Space Grotesk;font-weight:600;font-size:14px;color:var(--ochre)">'+max+'°C</div>' +
+        '<div style="font-size:11px;color:var(--ink3);margin-bottom:6px">min '+min+'°C</div>' +
+        (rain > 0 ? '<div style="font-size:10px;color:var(--red)">💧 '+rain+'mm</div>' : '') +
         '</div>';
     }
     html += '</div>';
