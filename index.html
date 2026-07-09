@@ -88,7 +88,7 @@ async function checkPw(){
 const val=document.getElementById('pw-input').value;
 const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
 const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-if(hex==='4235d56614d65cbf88182b92835f79f0c977d107c0528976e8c5e583f74e264a'){
+if(hex==='902db91ac6dddfa35e98688f4dc16fb6625bc7f399f7712bba4c76f7390d4c51'){
 document.getElementById('pw-overlay').style.display='none';
 sessionStorage.setItem('vbh_auth','1');
 } else {
