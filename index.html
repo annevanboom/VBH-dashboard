@@ -73,6 +73,39 @@ canvas{width:100%;height:210px;display:block}
 .htab td:first-child{text-align:left;font-weight:600}
 .hrow{cursor:pointer}.hrow:hover td{background:var(--bg)}.hrow.on td{background:var(--ochre-soft)}.hgrid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:18px}@media(max-width:760px){.hgrid{grid-template-columns:1fr}}
 </style>
+<div id="pw-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#f4f1ec;display:flex;align-items:center;justify-content:center;z-index:99999;font-family:Inter,system-ui,sans-serif;">
+<div style="background:#fff;border:1px solid #e0dbd0;border-radius:10px;padding:40px 48px;max-width:360px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+<div style="font-size:22px;font-weight:700;color:#211d1a;margin-bottom:6px;">VBH Dashboard</div>
+<div style="font-size:14px;color:#8a8179;margin-bottom:24px;">Geef het wachtwoord in om verder te gaan.</div>
+<input id="pw-input" type="password" placeholder="Wachtwoord" style="width:100%;box-sizing:border-box;padding:10px 14px;font-size:15px;border:1px solid #ccc;border-radius:6px;outline:none;margin-bottom:14px;" onkeydown="if(event.key==='Enter')checkPw()"/>
+<button onclick="checkPw()" style="width:100%;padding:10px;background:#211d1a;color:#f4f1ec;border:none;border-radius:6px;font-size:15px;font-weight:600;cursor:pointer;">Inloggen</button>
+<div id="pw-error" style="color:#c0392b;font-size:13px;margin-top:10px;display:none;">Onjuist wachtwoord. Probeer opnieuw.</div>
+</div>
+</div>
+<script>
+(function(){
+async function checkPw(){
+const val=document.getElementById('pw-input').value;
+const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
+const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+if(hex==='4235d56614d65cbf88182b92835f79f0c977d107c0528976e8c5e583f74e264a'){
+document.getElementById('pw-overlay').style.display='none';
+sessionStorage.setItem('vbh_auth','1');
+} else {
+document.getElementById('pw-error').style.display='block';
+document.getElementById('pw-input').value='';
+document.getElementById('pw-input').focus();
+}
+}
+window.checkPw=checkPw;
+if(sessionStorage.getItem('vbh_auth')==='1'){
+document.addEventListener('DOMContentLoaded',function(){
+var o=document.getElementById('pw-overlay');
+if(o)o.style.display='none';
+});
+}
+})();
+</script>
 <header class="top"><div class="wrap"><div class="brand">Vlaamsch <span>Broodhuys</span> · Weekrapportage</div><div class="meta" id="metaweek">Week 27 · 2026</div></div></header>
 <div class="wrap">
  <div class="controls">
