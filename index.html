@@ -135,7 +135,6 @@ if(o)o.style.display='none';
  </div>
  <div class="focus"><div class="ft" id="focusTitle"></div><div id="focusText" style="font-size:14px;color:#5a4413"></div></div>
  <div class="panel outlook"><h3>Vooruitblik komende week</h3><div class="sub" id="outSub"></div>
-   <div id="weatherContainer" style="margin-top:16px"></div>
    <div id="zomerCard"></div>
    <div id="weatherBody"></div>
    </div>
@@ -175,7 +174,7 @@ function render(){
   const s=current(); document.getElementById('segSel').value=s.segment;
   document.getElementById('metaweek').textContent = curPer==='wk'?'Week 29 · 2026':'YTD t/m week 29 · 2026';
   renderReview(); renderKpis(); renderTrend(); renderBench(); renderAssort(); renderSellout(); renderVerdict(); renderZomer(); renderWeather(); renderHistory();
-  document.getElementById('outSub').textContent='Weer dinsdag t/m maandag (di 16 – ma 22 jun), als input voor je planning komende week.';
+  document.getElementById('outSub').textContent='Weer dinsdag t/m maandag (di 21 – ma 27 juli), als input voor je planning komende week.';
 }
 function dot(good){return '<span class="dot" style="background:'+(good?'var(--green)':'var(--red)')+'"></span>';}
 
@@ -430,8 +429,8 @@ document.getElementById('foot').innerHTML='Bron: live week 29 (omzet, klanten, g
 
 
 // Weersvoorspelling ophalen van KNMI
-async function loadWeatherForecast() {
-  const container = document.getElementById('weatherContainer');
+async function loadWeatherForecast_DISABLED() {
+  const container = null;
   if (!container) return;
   
   try {
@@ -475,6 +474,6 @@ async function loadWeatherForecast() {
 
 
 
-loadWeatherForecast();
+// loadWeatherForecast() call removed — legacy duplicate widget, replaced by renderWeather() using s.weer
 render();
 </script></html>
