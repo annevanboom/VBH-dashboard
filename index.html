@@ -192,10 +192,6 @@ function renderReview(){
 }
 function renderResult(){
   const s=current(), d=s[curPer];
-function isoWeekNum(dt){dt=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const day=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-day+3);const firstThu=new Date(Date.UTC(dt.getUTCFullYear(),0,4));return 1+Math.round((dt-firstThu)/(7*24*3600*1000));}
-function isoWeeksInYr(y){const p=(x)=>(x+Math.floor(x/4)-Math.floor(x/100)+Math.floor(x/400))%7;return (p(y)===4||p(y-1)===3)?53:52;}
-const __now=new Date();const __totalWk=isoWeeksInYr(__now.getFullYear());const __curWk=isoWeekNum(__now);const weeksLeft=Math.max(1,__totalWk-__curWk+1);const jaarNodig=(s.ytd&&s.ytd.begroot!=null&&s.ytd.omzet!=null)?(s.ytd.begroot-s.ytd.omzet):null;const perWeekNodig=(jaarNodig!=null)?jaarNodig/weeksLeft:null;
-
   const ink=d.omzet*d.inkoop, bw=d.omzet-ink, marge=1-d.inkoop;
   const exact=(curPer==='wk' && s.loon_wk!=null);
   const persE=exact? s.loon_wk : d.omzet*(s.y2025.pers_pct/100);
@@ -217,7 +213,11 @@ const __now=new Date();const __totalWk=isoWeeksInYr(__now.getFullYear());const _
    +'</div>';
 }
 function renderKpis(){
-  const s=current(), d=s[curPer]; const g=document.getElementById('kpis'); g.innerHTML='';
+  const s=current(), d=s[curPer];
+function isoWeekNum(dt){dt=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const day=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-day+3);const firstThu=new Date(Date.UTC(dt.getUTCFullYear(),0,4));return 1+Math.round((dt-firstThu)/(7*24*3600*1000));}
+function isoWeeksInYr(y){const p=(x)=>(x+Math.floor(x/4)-Math.floor(x/100)+Math.floor(x/400))%7;return (p(y)===4||p(y-1)===3)?53:52;}
+const __now=new Date();const __totalWk=isoWeeksInYr(__now.getFullYear());const __curWk=isoWeekNum(__now);const weeksLeft=Math.max(1,__totalWk-__curWk+1);const jaarNodig=(s.ytd&&s.ytd.begroot!=null&&s.ytd.omzet!=null)?(s.ytd.begroot-s.ytd.omzet):null;const perWeekNodig=(jaarNodig!=null)?jaarNodig/weeksLeft:null;
+ const g=document.getElementById('kpis'); g.innerHTML='';
   const peers=STORES.filter(p=>p.segment===s.segment);
   const opuVals=peers.map(p=>p[curPer].opu).filter(v=>v!=null);
   const opuRank=d.opu!=null?[...opuVals].sort((a,b)=>b-a).indexOf(d.opu)+1:null;
