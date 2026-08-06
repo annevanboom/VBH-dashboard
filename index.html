@@ -212,11 +212,12 @@ function renderResult(){
    +cell(resLab,eur0.format(res),(resPct*100).toFixed(0)+'% v. omzet',true,res>=0?'var(--green)':'var(--red)')
    +'</div>';
 }
+const ANNUAL_BUDGET={"0001":530000,"0002":1100000,"0003":650000,"0004":670000,"0005":780000,"0006":800000,"0007":754800,"0008":935000,"0009":470000,"0010":590000,"0011":715000,"0012":500000,"0014":700000,"0015":601800,"0016":510000,"0017":826069,"0018":560000,"0019":850000,"0020":400000};
 function renderKpis(){
   const s=current(), d=s[curPer];
 function isoWeekNum(dt){dt=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const day=(dt.getUTCDay()+6)%7;dt.setUTCDate(dt.getUTCDate()-day+3);const firstThu=new Date(Date.UTC(dt.getUTCFullYear(),0,4));return 1+Math.round((dt-firstThu)/(7*24*3600*1000));}
 function isoWeeksInYr(y){const p=(x)=>(x+Math.floor(x/4)-Math.floor(x/100)+Math.floor(x/400))%7;return (p(y)===4||p(y-1)===3)?53:52;}
-const __now=new Date();const __totalWk=isoWeeksInYr(__now.getFullYear());const __curWk=isoWeekNum(__now);const weeksLeft=Math.max(1,__totalWk-__curWk+1);const jaarNodig=(s.ytd&&s.ytd.begroot!=null&&s.ytd.omzet!=null)?(s.ytd.begroot-s.ytd.omzet):null;const perWeekNodig=(jaarNodig!=null)?jaarNodig/weeksLeft:null;
+const __now=new Date();const __totalWk=isoWeeksInYr(__now.getFullYear());const __curWk=isoWeekNum(__now);const weeksLeft=Math.max(1,__totalWk-__curWk+1);const jaarBudgetTotal=(ANNUAL_BUDGET[s.code]!=null)?ANNUAL_BUDGET[s.code]:s.ytd.begroot;const jaarNodig=(jaarBudgetTotal!=null&&s.ytd.omzet!=null)?(jaarBudgetTotal-s.ytd.omzet):null;const perWeekNodig=(jaarNodig!=null)?jaarNodig/weeksLeft:null;
  const g=document.getElementById('kpis'); g.innerHTML='';
   const peers=STORES.filter(p=>p.segment===s.segment);
   const opuVals=peers.map(p=>p[curPer].opu).filter(v=>v!=null);
